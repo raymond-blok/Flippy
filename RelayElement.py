@@ -15,6 +15,6 @@ class RelayElement(object):
         wiringpi.digitalWrite(self.pin, self.power)
 
     # Create a method to turn off the RelayElement.
-    def turnOff():
+    def turnOff(self):
         self.power = False
         wiringpi.digitalWrite(self.pin, self.power)
