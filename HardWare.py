@@ -31,5 +31,4 @@ class HardWare(object):
                 if(relayElement.pin == triggeredRelayElement):
                     relayElement.turnOn()
                     break
-                else:
-                    relayElement.turnOff()
+            relayElement.turnOff()
