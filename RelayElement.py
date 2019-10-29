@@ -1,8 +1,8 @@
-import wiringpi
+import wiringpi2 as wiringpi
 
 class RelayElement(object):
-
     def __init__(self, pin):
+        #Initialize pinmode output and write off
         self.pin = pin
         wiringpi.pinMode(self.pin, 1)
         wiringpi.digitalWrite(self.pin, 0)

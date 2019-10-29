@@ -3,7 +3,6 @@ from GameRule import *
 from HardWare import *
 
 class Game(object):
-
     def __init__(self):
         gameRules = []
         gameRules.append(GameRule(65, 66, 10, None))
@@ -18,9 +17,5 @@ class Game(object):
                     if(response != None):
                         triggeredRelayElements.append(response)
             self.hardWare.activateRelayElements(triggeredRelayElements)
-
-
-
-
 
 Game()

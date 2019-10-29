@@ -1,5 +1,4 @@
 class GameRule(object):
-
     def __init__(self, sensor, relayElement, score, specialCase = None):
         # save a sensor to a field.
         self.sensor = sensor

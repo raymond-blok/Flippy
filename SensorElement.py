@@ -1,7 +1,6 @@
-import wiringpi
+import wiringpi2 as wiringpi
 
 class SensorElement(object):
-
     def __init__(self, pin):
         self.pin = pin
         # Save the pin used for this sensor.
@@ -10,4 +9,4 @@ class SensorElement(object):
 
     # Create a method to check if the sensor is active.
     def checkSensor(self):
-        return wiringpi.digitalRead(self.pin)
+        return 1 - wiringpi.digitalRead(self.pin)

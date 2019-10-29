@@ -1,10 +1,10 @@
 from SensorElement import *
 from RelayElement import *
-import wiringpi
+import wiringpi2 as wiringpi
 
 class HardWare(object):
-
     def __init__(self):
+        # Initialize wiringpi
         wiringpi.wiringPiSetup()
         wiringpi.mcp23017Setup(65, 0x20)
         # Hold a list of Sensors
@@ -13,10 +13,8 @@ class HardWare(object):
         # Hold a list of RelayElements
         self.relayElements = []
         self.relayElements.append(RelayElement(66))
-        # Initialize wiringpi
 
-
-    # Create a method to Scan a list of Sensors.
+    # Create a method to scan a list of Sensors.
     def checkSensorElements(self):
         activeSensorElements = []
         for sensorElement in self.sensorElements:
