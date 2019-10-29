@@ -1,6 +1,6 @@
 from SensorElement import *
 from RelayElement import *
-import wiringpi2 as wiringpi
+import wiringpi
 
 class HardWare(object):
 
