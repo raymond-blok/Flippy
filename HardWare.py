@@ -6,13 +6,30 @@ class HardWare(object):
     def __init__(self):
         # Initialize wiringpi
         wiringpi.wiringPiSetup()
-        wiringpi.mcp23017Setup(65, 0x20)
+        mcpOnePin = 100
+        mcpTwoPin = 200
+        mcpThreePin = 300
+        mcpFourPin = 400
+        wiringpi.mcp23017Setup(mcpOnePin, 0x20)
+        wiringpi.mcp23017Setup(mcpTwoPin, 0x21)
+        wiringpi.mcp23017Setup(mcpThreePin, 0x22)
+        wiringpi.mcp23017Setup(mcpFourPin, 0x23)
         # Hold a list of Sensors
         self.sensorElements = []
-        self.sensorElements.append(SensorElement(65))
+        for i in range(7):
+            self.sensorElements.append(SensorElement(mcpTwoPin + 9 + i))
+        for i in range(8):
+            self.sensorElements.append(SensorElement(mcpThreePin + 8 + i))
+        for i in range(8):
+            self.sensorElements.append(SensorElement(mcpFourPin + 8 + i))
         # Hold a list of RelayElements
         self.relayElements = []
         self.relayElements.append(RelayElement(66))
+        for i in range(7):
+            self.relayElements.append(RelayElement(mcpThreePin + 1 + i))
+        for i in range(6):
+            self.relayElements.append(RelayElement(mcpFourPin + 2 + i))
+
 
     # Create a method to scan a list of Sensors.
     def checkSensorElements(self):
