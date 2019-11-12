@@ -17,7 +17,7 @@ class SensorElement(object):
             if(self.active == False):
                 self.time = time.time_ns()
                 self.active = True
-            if(this.active && (time.time_ns() - self.time) > 500):
+            if(this.active and (time.time_ns() - self.time) > 500):
                 return True
             else:
                 return False
