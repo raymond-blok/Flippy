@@ -82,6 +82,8 @@ class Game(object):
         while(True):
             triggeredRelayElements = []
             activeSensorElements = self.hardWare.checkSensorElements()
+            print("list of Sensors")
+            print(activeSensorElements)
             if(len(activeSensorElements) > 0):
                 for activeSensorElement in activeSensorElements:
                     response = self.gameMode.checkRules(activeSensorElement)

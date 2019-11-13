@@ -12,6 +12,7 @@ class RelayElement(object):
     # Create a method to turn on the RelayElement.
     def turnOn(self):
         if(self.power != 0):
+            print("RelayElement " + str(self.pin) + " is turned on")
             self.power = 0
             wiringpi.digitalWrite(self.pin, self.power)
 

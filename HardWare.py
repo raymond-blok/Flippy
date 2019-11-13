@@ -41,6 +41,8 @@ class HardWare(object):
 
     # Create a method to activate a RelayElement
     def activateRelayElements(self, triggeredRelayElements):
+        print("elements to activate")
+        print(triggeredRelayElement)
         for relayElement in self.relayElements:
             check = False
             for triggeredRelayElement in triggeredRelayElements:

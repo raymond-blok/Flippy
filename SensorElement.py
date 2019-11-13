@@ -14,10 +14,12 @@ class SensorElement(object):
     def checkSensor(self):
         sensorValue = 1 - wiringpi.digitalRead(self.pin) # invert because of pullup.
         if(sensorValue == 1):
+
             if(self.active == False):
                 self.time = time.monotonic()
                 self.active = True
             if(self.active and (time.monotonic() - self.time) > 0.0001):
+                print("sensor " + str(self.pin) + " is active in SensorElement")
                 return True
             else:
                 return False
