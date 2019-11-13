@@ -65,7 +65,7 @@ class Game(object):
         gameRules.append(GameRule(leftGate,             None,           0,      None))
         gameRules.append(GameRule(pointSensorSerie1000, None,           0,      None))
         gameRules.append(GameRule(rightUpBumper,        None,           0,      None))
-        gameRules.append(GameRule(leftFlipperButton,    gutterRelay,    0,      None))
+        gameRules.append(GameRule(leftFlipperButton,    leftFlipper,    0,      None))
         gameRules.append(GameRule(rightFlipperButton,   rightFlipper,   0,      None))
 
         gameRules.append(GameRule(ZSensor,          ZRelay,         0,      None))
