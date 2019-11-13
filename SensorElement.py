@@ -1,4 +1,4 @@
-import wiringpi2 as wiringpi
+import wiringpi as wiringpi
 import time
 
 class SensorElement(object):
@@ -15,12 +15,12 @@ class SensorElement(object):
         sensorValue = 1 - wiringpi.digitalRead(self.pin) # invert because of pullup.
         if(sensorValue == 1):
             if(self.active == False):
-                self.time = time.time_ns()
+                self.time = time.monotonic()
                 self.active = True
-            if(this.active and (time.time_ns() - self.time) > 500):
+            if(self.active and (time.monotonic() - self.time) > 0.0001):
                 return True
             else:
                 return False
         else:
-            this.active = False
+            self.active = False
             return False

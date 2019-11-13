@@ -1,6 +1,6 @@
 from SensorElement import *
 from RelayElement import *
-import wiringpi2 as wiringpi
+import wiringpi as wiringpi
 
 class HardWare(object):
     def __init__(self):
@@ -42,8 +42,11 @@ class HardWare(object):
     # Create a method to activate a RelayElement
     def activateRelayElements(self, triggeredRelayElements):
         for relayElement in self.relayElements:
+            check = False
             for triggeredRelayElement in triggeredRelayElements:
                 if(relayElement.pin == triggeredRelayElement):
                     relayElement.turnOn()
+                    check = True
                     break
-            relayElement.turnOff()
+            if(check == False):
+                relayElement.turnOff()
