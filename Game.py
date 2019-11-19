@@ -72,7 +72,7 @@ class Game(object):
         gameRules.append(GameRule(OSensor,          ORelay,         0,      None))
         gameRules.append(GameRule(NSensor,          NRelay,         0,      None))
         gameRules.append(GameRule(ESensor,          ERelay,         0,      None))
-        gameRules.append(GameRule(gutterSensor,     gutterRelay,    0,      None))
+        gameRules.append(GameRule(gutterSensor,     gutterRelay,    0,      None, 1))
         gameRules.append(GameRule(holeAbove,        Hole,           0,      None))
         gameRules.append(GameRule(vibrationSensor,  None,           0,      "ENDGAME"))
         gameRules.append(GameRule(startButton,      None,           0,      "ENDGAME"))
