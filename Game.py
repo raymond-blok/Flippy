@@ -84,7 +84,7 @@ class Game(object):
             activeSensorElements = self.hardWare.checkSensorElements()
             print("list of Sensors")
             print(activeSensorElements)
-            self.gameMode.checkRules(activeSensorElements)
+            triggeredRelayElements = self.gameMode.checkRules(activeSensorElements)
             self.hardWare.activateRelayElements(triggeredRelayElements)
 
 Game()

@@ -34,7 +34,7 @@ class GameRule(object):
             self.triggered = True
             return True
         if(self.active):
-            if(self.active and (time.monotonic() - self.time) > this.delay):
+            if(self.active and (time.monotonic() - self.time) > self.delay):
                 self.triggered = True
                 return True
             else:

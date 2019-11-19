@@ -22,21 +22,23 @@ class GameMode(object):
                 if(gameRule.getSensor() == activeSensorElement):
 
                     check = True
-                    if(gameRule.triggered == False):
-                        success = gameRule.activate()
-                        if(success):
+                    success = gameRule.activate()
+                    print(success)
+                    if(success):
+                        if(gameRule.triggered == False):
                             self.checkAndAddScore(gameRule)
                             self.checkSpecialCase(gameRule)
-                            relayElement = gameRule.getRelayElement()
-                            if(relayElement != None):
-                                triggeredRelayElement.append(relayElement)
-                        else:
-                            if gameRule in self.futureEvents
-                                print("dont")
-                            else:
-                                self.futureEvents.append(gameRule)
+                        relayElement = gameRule.getRelayElement()
+                        if(relayElement != None):
+                            print("test")
+                            triggeredRelayElements.append(relayElement)
+                    else:
+                        self.futureEvents.append(gameRule)
             if(check == False):
                 gameRule.deactivate()
+        print("test2:")
+        print(triggeredRelayElements)
+
         return triggeredRelayElements
 
 
