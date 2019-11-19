@@ -30,8 +30,8 @@ class GameRule(object):
 
     def activate(self):
         if(self.delay == 0):
-            this.active = True
-            this.triggered = True
+            self.active = True
+            self.triggered = True
             return True
         if(self.active):
             if(self.active and (time.monotonic() - self.time) > this.delay):

@@ -15,14 +15,14 @@ class GameMode(object):
     # Create a method to check the list with GameRules.
     def checkRules(self, activeSensorElements):
         triggeredRelayElements = deepcopy(self.futureEvents)
-        self.futureEvents = ()
+        self.futureEvents = []
         for gameRule in self.gameRules:
             check = False
             for activeSensorElement in activeSensorElements:
                 if(gameRule.getSensor() == activeSensorElement):
 
                     check = True
-                    if(gameRule.active == False):
+                    if(gameRule.triggered == False):
                         success = gameRule.activate()
                         if(success):
                             self.checkAndAddScore(gameRule)
