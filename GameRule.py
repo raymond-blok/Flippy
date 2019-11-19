@@ -1,5 +1,7 @@
+import time
+
 class GameRule(object):
-    def __init__(self, sensor, relayElement, score, specialCase = None):
+    def __init__(self, sensor, relayElement, score, specialCase = None, delay = 0):
         # save a sensor to a field.
         self.sensor = sensor
         # save a (potential) RelayElement.
@@ -8,6 +10,10 @@ class GameRule(object):
         self.score = score
         # Special case
         self.specialCase = specialCase
+        self.active = False
+        self.delay = delay
+        self.triggered = False
+        self.time = 0;
 
     # Create a method to return the Sensor.
     def getSensor(self):
@@ -21,3 +27,25 @@ class GameRule(object):
     # Create a method to return special cases.
     def getSpecialCase(self):
         return self.specialCase
+
+    def activate(self):
+        if(self.delay == 0):
+            this.active = True
+            this.triggered = True
+            return True
+        if(self.active):
+            if(self.active and (time.monotonic() - self.time) > this.delay):
+                self.triggered = True
+                return True
+            else:
+                return False
+        else:
+            self.active = True
+            self.time = time.monotonic()
+            return False
+
+
+    def deactivate(self):
+        self.triggered = False
+        self.active = False
+    def
