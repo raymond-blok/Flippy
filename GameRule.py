@@ -48,4 +48,3 @@ class GameRule(object):
     def deactivate(self):
         self.triggered = False
         self.active = False
-    def
