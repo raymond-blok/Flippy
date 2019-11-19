@@ -1,6 +1,6 @@
 from GameRule import *
 
-class GameMode(object):
+class GameMode:
     def __init__(self, gameRules):
         # Save a list of GameRules.
         self.gameRules = gameRules
