@@ -40,8 +40,8 @@ class Hardware:
             isChecked = False
             for triggeredRelayElement in triggeredRelayElements:
                 if(relayElement.pin == triggeredRelayElement):
-                    relayElement.turnOff()
+                    relayElement.powerOff()
                     isChecked = True
                     break
             if(isChecked != True):
-                relayElement.turnOn()
+                relayElement.powerOn()

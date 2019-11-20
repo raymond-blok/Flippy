@@ -1,7 +1,7 @@
 class GameRule:
-    def __init__(self, sensor, relayElement, score, specialCase = None):
+    def __init__(self, sensorElement, relayElement, score, specialCase = None):
         # save a sensor to a field.
-        self.sensor = sensor
+        self.sensorElement = sensorElement
 
         # save a (potential) RelayElement.
         self.relayElement = relayElement
@@ -16,9 +16,9 @@ class GameRule:
 
     # Create a method to return the Sensor.
     def getSensor(self):
-        return self.sensor
+        return self.sensorElement
 
-    # Create a method to return the (potential) RelayElement.
+    # Create a method to return the RelayElement.
     def getRelayElement(self):
         return self.relayElement
 
