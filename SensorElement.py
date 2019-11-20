@@ -21,7 +21,7 @@ class SensorElement:
                 self.time = time.monotonic()
                 self.active = True
             if(self.active and (time.monotonic() - self.time) > 0.0001):
-                # DEBUG
+                #Debug option
                 if (settings.debugMode):
                     print(self.name + " is active in SensorElement")
                 return True

@@ -1,4 +1,5 @@
 import time
+
 class GameRule:
     def __init__(self, sensor, relayElement, score, specialCase = None, delay = 0):
         # save a sensor to a field.
@@ -48,7 +49,6 @@ class GameRule:
             self.active = True
             self.time = time.monotonic()
             return False
-
 
     def deactivate(self):
         self.triggered = False

@@ -47,7 +47,7 @@ def init():
     global sensorList
     global relayList
 
-    #sensorList
+    #sensorList with name and pin
     sensorList = []
     sensorList.append(["leftBumperSensor", leftBumperSensor])
     sensorList.append(["rightBumperSensor", rightBumperSensor])
@@ -73,7 +73,7 @@ def init():
     sensorList.append(["vibrationSensor", vibrationSensor])
     sensorList.append(["startButton", startButton])
 
-    #relayList
+    #relayList with name and pin
     relayList = []
     relayList.append(["gutterRelay", gutterRelay])
     relayList.append(["rightFlipper", rightFlipper])

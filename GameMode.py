@@ -9,8 +9,6 @@ class GameMode:
         self.score = 0
         #keep track of a list with items to activate in the future.
         self.futureEvents = []
-        # Somehow get access to list of components
-        #??????
 
     # Create a method to check the list with GameRules.
     def checkRules(self, activeSensorElements):
@@ -20,10 +18,8 @@ class GameMode:
             check = False
             for activeSensorElement in activeSensorElements:
                 if(gameRule.getSensor() == activeSensorElement):
-
                     check = True
                     success = gameRule.activate()
-                    print(success)
                     if(success):
                         if(gameRule.triggered == False):
                             self.checkAndAddScore(gameRule)
@@ -35,9 +31,7 @@ class GameMode:
                         self.futureEvents.append(gameRule)
             if(check == False):
                 gameRule.deactivate()
-
         return triggeredRelayElements
-
 
     # Create a method to check and add the score.
     def checkAndAddScore(self, gameRule):
