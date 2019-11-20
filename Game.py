@@ -34,12 +34,12 @@ class Game:
         gameRules.append(GameRule(settings.vibrationSensor, None, 0, "ENDGAME"))
         gameRules.append(GameRule(settings.startButton, None, 0, "ENDGAME"))
         self.gameMode = GameMode(gameRules)
-        self.hardware = Hardware()
+        self.Hardware = Hardware()
 
         while(True):
             triggeredRelayElements = []
-            activeSensorElements = self.hardWare.checkSensorElements()
+            activeSensorElements = self.Hardware.checkSensorElements()
             triggeredRelayElements = self.gameMode.checkRules(activeSensorElements)
-            self.hardWare.activateRelayElements(triggeredRelayElements)
+            self.Hardware.activateRelayElements(triggeredRelayElements)
 
 Game()
