@@ -1,8 +1,9 @@
 from SensorElement import *
 from RelayElement import *
-import wiringpi as wiringpi
+import wiringpi
+import settings
 
-class HardWare(object):
+class Hardware:
     def __init__(self):
         # Initialize wiringpi
         wiringpi.wiringPiSetup()
@@ -14,22 +15,16 @@ class HardWare(object):
         wiringpi.mcp23017Setup(mcpTwoPin, 0x21)
         wiringpi.mcp23017Setup(mcpThreePin, 0x22)
         wiringpi.mcp23017Setup(mcpFourPin, 0x23)
+
         # Hold a list of Sensors
         self.sensorElements = []
-        for i in range(7):
-            self.sensorElements.append(SensorElement(mcpTwoPin + 9 + i))
-        for i in range(8):
-            self.sensorElements.append(SensorElement(mcpThreePin + 8 + i))
-        for i in range(8):
-            self.sensorElements.append(SensorElement(mcpFourPin + 8 + i))
+        for sensorElement in settings.sensorList:
+            self.sensorElements.append(SensorElement(sensorElement[0], sensorElement[1]))
+
         # Hold a list of RelayElements
         self.relayElements = []
-        self.relayElements.append(RelayElement(66))
-        for i in range(7):
-            self.relayElements.append(RelayElement(mcpThreePin + 1 + i))
-        for i in range(6):
-            self.relayElements.append(RelayElement(mcpFourPin + 2 + i))
-
+        for relayElement in settings.relayList:
+            self.relayElements.append(RelayElement(relayElement[0], relayElement[1]))
 
     # Create a method to scan a list of Sensors.
     def checkSensorElements(self):
@@ -41,8 +36,11 @@ class HardWare(object):
 
     # Create a method to activate a RelayElement
     def activateRelayElements(self, triggeredRelayElements):
+<<<<<<< HEAD
         print("elements to activate")
         print(triggeredRelayElements)
+=======
+>>>>>>> f9a1d589575edb71c574ecec33a61bb873e3d368
         for relayElement in self.relayElements:
             check = False
             for triggeredRelayElement in triggeredRelayElements:
