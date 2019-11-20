@@ -37,11 +37,11 @@ class Hardware:
     # activate a RelayElement
     def activateRelayElements(self, triggeredRelayElements):
         for relayElement in self.relayElements:
-            check = False
+            isChecked = False
             for triggeredRelayElement in triggeredRelayElements:
                 if(relayElement.pin == triggeredRelayElement):
-                    relayElement.turnOn()
-                    check = True
+                    relayElement.turnOff()
+                    isChecked = True
                     break
-            if(check == False):
-                relayElement.turnOff()
+            if(isChecked != True):
+                relayElement.turnOn()

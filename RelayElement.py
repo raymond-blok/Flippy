@@ -1,33 +1,38 @@
 import wiringpi
 import settings
+import time 
 
 class RelayElement:
     def __init__(self,name, pin):
         self.name = name
         self.pin = pin
-        self.active = False
+        #because of pull-up powering states are switched
+        self.active = True
+        self.timeInMillis = 0
 
         #Initialize pinmode output and write off
         wiringpi.pinMode(self.pin, 1)
         wiringpi.digitalWrite(self.pin, 1)
-        
-        # Save the pin used for this sensor.
-        self.power = 1
 
-    #Turn on the RelayElement.
+    # Turn on by powering on the RelayElement.
     def turnOn(self):
-        if(self.power != 0):
+        #check if power is off and time is later then 100 milis
+        if(self.active != True and ( ( (int(round(time.time() * 1000) ) - self.timeInMillis ) > 100))):
             #Debug option
             if (settings.debugMode):
-                print(self.name + " is turned on")
-            self.power = 0
-            wiringpi.digitalWrite(self.pin, self.power)
+                print(self.name + " is powerd on (pull-up)")
+            self.active = True
+            wiringpi.digitalWrite(self.pin, self.active) 
+            
 
-    # Turn off the RelayElement.
+    #Turn off by powerinng off the RelayElement.
     def turnOff(self):
-        if(self.power != 1):
+        if(self.active != False):
             #Debug option
             if (settings.debugMode):
-                print(self.name + " is turned off")
-            self.power = 1
-            wiringpi.digitalWrite(self.pin, self.power)
+                print(self.name + " is powerd off (pull-up)")
+            self.active = False
+            wiringpi.digitalWrite(self.pin, self.active)
+            #save start time
+            self.timeInMillis = int(round(time.time() * 1000))
+

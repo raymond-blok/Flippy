@@ -1,12 +1,10 @@
 import wiringpi
-import time
 import settings
 
 class SensorElement:
     def __init__(self, name, pin):
         self.name = name
         self.pin = pin
-        self.time = 0
         self.active = False
         
         # Save the pin used for this sensor.
@@ -17,16 +15,12 @@ class SensorElement:
     def checkSensor(self):
         sensorValue = 1 - wiringpi.digitalRead(self.pin) # invert because of pullup.
         if(sensorValue == 1):
-            if(self.active == False):
-                self.time = time.monotonic()
+            if(self.active != True):
                 self.active = True
-            if(self.active and (time.monotonic() - self.time) > 0.0001):
                 #Debug option
                 if (settings.debugMode):
-                    print(self.name + " is active in SensorElement")
-                return True
-            else:
-                return False
+                    print(self.name + " is triggered")
+            return True
         else:
             self.active = False
             return False
