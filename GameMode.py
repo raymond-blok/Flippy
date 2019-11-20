@@ -30,14 +30,11 @@ class GameMode:
                             self.checkSpecialCase(gameRule)
                         relayElement = gameRule.getRelayElement()
                         if(relayElement != None):
-                            print("test")
                             triggeredRelayElements.append(relayElement)
                     else:
                         self.futureEvents.append(gameRule)
             if(check == False):
                 gameRule.deactivate()
-        print("test2:")
-        print(triggeredRelayElements)
 
         return triggeredRelayElements
 
