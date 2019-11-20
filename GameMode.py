@@ -28,6 +28,7 @@ class GameMode:
                         if(gameRule.triggered == False):
                             self.checkAndAddScore(gameRule)
                             self.checkSpecialCase(gameRule)
+                            gameRule.triggered = True
                         relayElement = gameRule.getRelayElement()
                         if(relayElement != None):
                             triggeredRelayElements.append(relayElement)
