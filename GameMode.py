@@ -7,9 +7,6 @@ class GameMode:
         # Keep the total score
         self.score = 0
 
-        #keep track of a list with items to activate in the future.
-        self.futureEvents = []
-
     # Create a method to check the list with GameRules.
     def checkRules(self, activeSensorElements):
         triggeredRelayElements = []
