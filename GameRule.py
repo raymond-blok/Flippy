@@ -37,11 +37,9 @@ class GameRule:
     def activate(self):
         if(self.delay == 0):
             self.active = True
-            self.triggered = True
             return True
         if(self.active):
             if(self.active and (time.monotonic() - self.time) > self.delay):
-                self.triggered = True
                 return True
             else:
                 return False

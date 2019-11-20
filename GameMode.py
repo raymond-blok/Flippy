@@ -1,5 +1,4 @@
 from GameRule import *
-from copy import deepcopy
 
 class GameMode:
     def __init__(self, gameRules):
@@ -7,13 +6,13 @@ class GameMode:
         self.gameRules = gameRules
         # Keep the total score
         self.score = 0
+
         #keep track of a list with items to activate in the future.
         self.futureEvents = []
 
     # Create a method to check the list with GameRules.
     def checkRules(self, activeSensorElements):
-        triggeredRelayElements = deepcopy(self.futureEvents)
-        self.futureEvents = []
+        triggeredRelayElements = []
         for gameRule in self.gameRules:
             check = False
             for activeSensorElement in activeSensorElements:
@@ -24,11 +23,10 @@ class GameMode:
                         if(gameRule.triggered == False):
                             self.checkAndAddScore(gameRule)
                             self.checkSpecialCase(gameRule)
+                            gameRule.triggered = True
                         relayElement = gameRule.getRelayElement()
                         if(relayElement != None):
                             triggeredRelayElements.append(relayElement)
-                    else:
-                        self.futureEvents.append(gameRule)
             if(check == False):
                 gameRule.deactivate()
         return triggeredRelayElements
