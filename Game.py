@@ -38,11 +38,8 @@ class Game:
 
         while(True):
             triggeredRelayElements = []
-            activeSensorElements = self.hardware.checkSensorElements()
-            if(len(activeSensorElements) > 0):
-                for activeSensorElement in activeSensorElements:
-                    response = self.gameMode.checkRules(activeSensorElement)
-                    if(response != None):
-                        triggeredRelayElements.append(response)
-            self.hardware.activateRelayElements(triggeredRelayElements)
+            activeSensorElements = self.hardWare.checkSensorElements()
+            triggeredRelayElements = self.gameMode.checkRules(activeSensorElements)
+            self.hardWare.activateRelayElements(triggeredRelayElements)
+
 Game()

@@ -1,5 +1,5 @@
 class GameRule:
-    def __init__(self, sensor, relayElement, score, specialCase = None):
+    def __init__(self, sensor, relayElement, score, specialCase = None, delay = 0):
         # save a sensor to a field.
         self.sensor = sensor
 
@@ -34,11 +34,11 @@ class GameRule:
 
     def activate(self):
         if(self.delay == 0):
-            this.active = True
-            this.triggered = True
+            self.active = True
+            self.triggered = True
             return True
         if(self.active):
-            if(self.active and (time.monotonic() - self.time) > this.delay):
+            if(self.active and (time.monotonic() - self.time) > self.delay):
                 self.triggered = True
                 return True
             else:
@@ -52,4 +52,3 @@ class GameRule:
     def deactivate(self):
         self.triggered = False
         self.active = False
-    def
