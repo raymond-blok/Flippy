@@ -11,6 +11,7 @@ class GameMode:
 
     # Create a method to check the list with GameRules.
     def checkRules(self, activeSensorElements):
+        triggeredRelayElements = []
         for gameRule in self.gameRules:
             check = False
             for activeSensorElement in activeSensorElements:
