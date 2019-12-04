@@ -34,6 +34,7 @@ class GameMode:
 
             if(check == False):
                 gameRule.deactivate()
+                self.deactivateSpecialCase(gameRule)
         triggeredRelayElements += self.getAndRemoveFinishedRelays()
         return triggeredRelayElements
 
@@ -57,6 +58,12 @@ class GameMode:
                     self.addDelayRelay(zoneRelay, 5)
                 self.zoneRelayList = []
 
+    def deactivateSpecialCase(self, gameRule):
+        case = gameRule.getSpecialCase()
+        if(case == None):
+            return
+        if(case == "zoneElement"):
+            self.zoneRelayList.remove(gameRule.relayElement)
     # Create a method to end the game.
     def endGame(self):
         self.score = 0
