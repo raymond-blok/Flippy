@@ -56,7 +56,6 @@ class GameMode:
             if(len(self.zoneRelayList) >= 4):
                 for zoneRelay in self.zoneRelayList:
                     self.addDelayRelay(zoneRelay, 5)
-                self.zoneRelayList = []
 
     def deactivateSpecialCase(self, gameRule):
         case = gameRule.getSpecialCase()

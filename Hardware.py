@@ -16,7 +16,7 @@ class Hardware:
         wiringpi.mcp23017Setup(mcpTwoPin, 0x21)
         wiringpi.mcp23017Setup(mcpThreePin, 0x22)
         wiringpi.mcp23017Setup(mcpFourPin, 0x23)
-
+        
         # Hold a list of Sensors objects
         self.sensorElements = []
         for sensorElement in settings.sensorList:
@@ -46,8 +46,8 @@ class Hardware:
                     break
             if(isChecked != True):
                 relayElement.powerOn()
-    def testRelays():
+    def testRelays(self):
         for relay in self.relayElements:
             relay.powerOff()
-            time.sleep(0.2)
+            time.sleep(0.3)
             relay.powerOn()
