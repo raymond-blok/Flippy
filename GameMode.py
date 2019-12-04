@@ -51,9 +51,11 @@ class GameMode:
             return
         if(case == "zoneElement"):
             self.zoneRelayList.append(gameRule.relayElement)
-            if(len(self.zoneElement) >= 4):
+            print(self.zoneRelayList)
+            if(len(self.zoneRelayList) >= 4):
                 for zoneRelay in self.zoneRelayList:
-                    self.addDelayRelay(zoneRelay, 30)
+                    self.addDelayRelay(zoneRelay, 5)
+                self.zoneRelayList = []
 
     # Create a method to end the game.
     def endGame(self):
