@@ -2,6 +2,7 @@ from SensorElement import *
 from RelayElement import *
 import wiringpi
 import settings
+import time
 
 class Hardware:
     def __init__(self):
@@ -45,3 +46,8 @@ class Hardware:
                     break
             if(isChecked != True):
                 relayElement.powerOn()
+    def testRelays():
+        for relay in self.relayElements:
+            relay.powerOff()
+            time.sleep(0.2)
+            relay.powerOn()
