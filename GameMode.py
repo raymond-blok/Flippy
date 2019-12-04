@@ -63,7 +63,8 @@ class GameMode:
         if(case == None):
             return
         if(case == "zoneElement"):
-            self.zoneRelayList.remove(gameRule.relayElement)
+            if (gameRule.relayElement in self.zoneRelayList):
+                self.zoneRelayList.remove(gameRule.relayElement)
     # Create a method to end the game.
     def endGame(self):
         self.score = 0
