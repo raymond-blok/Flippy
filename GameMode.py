@@ -1,15 +1,25 @@
 from GameRule import *
+import settings
 import time
 
 class GameMode:
-    def __init__(self, gameRules):
+    def __init__(self, gameRules, players, attempts):
+        self.players = players
         # Save a list of GameRules.
         self.gameRules = gameRules
         # Keep the total score
-        self.score = 0
+        self.score = [0] * self.players
+        self.attempts = [attempts] * self.players
+
+        self.currentPlayer = 0
         # list to keep the zone relayList
         self.zoneRelayList = []
         self.delayRelayList = []
+
+
+
+        self.gameStatus = True
+        self.addDelayRelay(settings.gutterRelay, 1)
 
     # Create a method to check the list with GameRules.
     def checkRules(self, activeSensorElements):
@@ -40,7 +50,7 @@ class GameMode:
 
     # Create a method to check and add the score.
     def checkAndAddScore(self, gameRule):
-        self.score += gameRule.getPoints()
+        self.score[self.currentPlayer] += gameRule.getPoints()
 
     # Create a method to check special circumstances.
     def checkSpecialCase(self, gameRule):
@@ -66,7 +76,16 @@ class GameMode:
                 self.zoneRelayList.remove(gameRule.relayElement)
     # Create a method to end the game.
     def endGame(self):
-        self.score = 0
+        if all(x is 0 for x in self.attempts):
+            self.gameStatus = False
+            self.score = 0
+            return
+        self.attempts[self.currentPlayer] = self.attempts[self.currentPlayer] - 1
+        self.addDelayRelay(settings.gutterRelay, 1)
+        if(self.attempts[self.currentPlayer] <= 0):
+            self.currentPlayer = self.currentPlayer + 1
+
+
 
     def checkDelayRelay(self, relay):
         for delayRelay in self.delayRelayList:

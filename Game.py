@@ -1,45 +1,57 @@
 from GameMode import *
 from GameRule import *
 from Hardware import *
+from GameModeSelect import *
+
 import settings
 
 class Game:
     def __init__(self):
         settings.init()
-        gameRules = []
 
-        gameRules.append(GameRule(settings.leftBumperSensor, settings.LeftBumperRelay,    0, None))
-        gameRules.append(GameRule(settings.rightBumperSensor, settings.rightBumperRelay,   0, None))
-        gameRules.append(GameRule(settings.leftMushroomSensor, settings.leftMushroomRelay,  0, None))
-        gameRules.append(GameRule(settings.rightMushroomSensor, settings.rightMushroomRelay, 0, None))
-        gameRules.append(GameRule(settings.aboveMushroomSenor, settings.aboveMushroomRelay, 0, None))
-        gameRules.append(GameRule(settings.tiltSensor, None, 0, "ENDGAME"))
-        gameRules.append(GameRule(settings.swingSensor, None, 0, "ENDGAME"))
-
-        gameRules.append(GameRule(settings.middleBumpers, None, 0,None))
-        gameRules.append(GameRule(settings.pointSensorSerie500,None, 0, None))
-        gameRules.append(GameRule(settings.upLeftRollover, None, 0, None))
-        gameRules.append(GameRule(settings.leftGate, None, 0, None))
-        gameRules.append(GameRule(settings.pointSensorSerie1000, None, 0, None))
-        gameRules.append(GameRule(settings.rightUpBumper, None, 0, None))
-        gameRules.append(GameRule(settings.leftFlipperButton, settings.leftFlipper, 0, None))
-        gameRules.append(GameRule(settings.rightFlipperButton, settings.rightFlipper, 0, None))
-
-        gameRules.append(GameRule(settings.ZSensor, settings.ZRelay, 0, "zoneElement", 0, False))
-        gameRules.append(GameRule(settings.OSensor, settings.ORelay, 0, "zoneElement", 0, False))
-        gameRules.append(GameRule(settings.NSensor, settings.NRelay, 0, "zoneElement", 0, False))
-        gameRules.append(GameRule(settings.ESensor, settings.ERelay, 0, "zoneElement", 0, False))
-        gameRules.append(GameRule(settings.gutterSensor, settings.gutterRelay, 0, None))
-        gameRules.append(GameRule(settings.holeAbove, settings.Hole, 0, None))
-        gameRules.append(GameRule(settings.vibrationSensor, None, 0, "ENDGAME"))
-        gameRules.append(GameRule(settings.startButton, None, 0, "ENDGAME"))
-        self.gameMode = GameMode(gameRules)
+        self.gameMode = None
+        self.gameModeSelect = GameModeSelect()
         self.Hardware = Hardware()
-
+        self.running  = False
+        self.startButtonPressed = False
+        self.leftFlipperButtonPressed = False
+        self.rightFlipperButtonPressed = False
         while(True):
             triggeredRelayElements = []
-            activeSensorElements = self.Hardware.checkSensorElements()
-            triggeredRelayElements = self.gameMode.checkRules(activeSensorElements)
-            self.Hardware.activateRelayElements(triggeredRelayElements)
+            if(self.running):
+                activeSensorElements = self.Hardware.checkSensorElements()
+                triggeredRelayElements = self.gameMode.checkRules(activeSensorElements)
+                self.Hardware.activateRelayElements(triggeredRelayElements)
+                # W.I.P
+                if(self.gameMode.gameStatus):
+                    self.running = False
+                    self.gameModeSelect = GameModeSelect()
+            else:
+                triggeredRelayElements = self.Hardware.checkSensorElements()
+                if settings.startButton in triggeredRelayElements: # startbutton W.I.P
+                    if(self.startButtonPressed == False):
+                        self.startButtonPressed = True
+                        if(self.gameModeSelect.nextStep()):
+                            # Still need to make sure that the button is activated once per press.
+                            selectedGame = self.gameModeSelect.getSelectedGameMode()
+                            self.gameMode = GameMode(settings.generalGameRules, selectedGame[0], selectedGame[1])
+                            self.running = True
+                else:
+                    self.startButtonPressed = False
 
+                if settings.leftFlipperButton in triggeredRelayElements:
+
+                    if(self.leftFlipperButtonPressed == False):
+                        self.gameModeSelect.decrementField()
+                        self.leftFlipperButtonPressed = True
+                else:
+                    self.leftFlipperButtonPressed = False
+
+                if settings.rightFlipperButton in triggeredRelayElements:
+
+                    if(self.rightFlipperButtonPressed == False):
+                        self.gameModeSelect.incrementField()
+                        self.rightFlipperButtonPressed = True
+                    else:
+                        self.rightFlipperButtonPressed = False
 Game()
