@@ -21,6 +21,7 @@ class GameMode:
         self.gameStatus = True
         # this is so that the ball returns at the start of the game.
         self.addDelayRelay(settings.gutterRelay, 0)
+        self.resetZone();
         self.gameStart = False
     # Create a method to check the list with GameRules.
     #
@@ -91,6 +92,7 @@ class GameMode:
             return
         print(self.attempts[self.currentPlayer])
         self.attempts[self.currentPlayer] = self.attempts[self.currentPlayer] - 1
+        self.resetZone();
         if(self.attempts[self.currentPlayer] <= 0 and self.currentPlayer < self.players-1):
             self.currentPlayer = self.currentPlayer + 1
 
@@ -124,3 +126,8 @@ class GameMode:
             self.removeDelayRelay(relay)
         return finishedRelays
     # Create a method to get the current
+    def resetZone(self):
+        self.addDelayRelay(settings.ZRelay, 0)
+        self.addDelayRelay(settings.ORelay, 0)
+        self.addDelayRelay(settings.NRelay, 0)
+        self.addDelayRelay(settings.ERelay, 0)
