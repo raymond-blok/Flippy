@@ -38,13 +38,8 @@ NRelay =                302
 ERelay =                301
 
 Hole =                  407
-<<<<<<< HEAD
-leftFlipper =           406
-LeftBumperRelay =       400
-=======
 leftFlipper =           401
 LeftBumperRelay =       405
->>>>>>> 898480c1658dec9aed5083681348bca692a70746
 leftMushroomRelay =     404
 rightMushroomRelay =    403
 aboveMushroomRelay =    402
@@ -119,7 +114,7 @@ def init():
     generalGameRules.append(GameRule.GameRule(OSensor, ORelay, 0, "zoneElement", 0, False))
     generalGameRules.append(GameRule.GameRule(NSensor, NRelay, 0, "zoneElement", 0, False))
     generalGameRules.append(GameRule.GameRule(ESensor, ERelay, 0, "zoneElement", 0, False))
-    generalGameRules.append(GameRule.GameRule(gutterSensor, None, 0, "ENDGAME"))
+    generalGameRules.append(GameRule.GameRule(gutterSensor, gutterRelay, 0, "ENDGAME", 1))
     generalGameRules.append(GameRule.GameRule(holeAbove, Hole, 1000, None, 2))
     generalGameRules.append(GameRule.GameRule(vibrationSensor, None, 0, "ENDGAME"))
     generalGameRules.append(GameRule.GameRule(startButton, None, 0, "ENDGAME"))

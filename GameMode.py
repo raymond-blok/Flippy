@@ -15,7 +15,6 @@ class GameMode:
         # list to keep the zone relayList
         self.zoneRelayList = []
         self.delayRelayList = []
-        self.gutterIsActive = False
 
 
 
@@ -25,13 +24,10 @@ class GameMode:
     # Create a method to check the list with GameRules.
     def checkRules(self, activeSensorElements):
         triggeredRelayElements = []
-        self.gutterIsActive = False
         for gameRule in self.gameRules:
             check = False
             for activeSensorElement in activeSensorElements:
                 if(gameRule.getSensor() == activeSensorElement):
-                    if(activeSensorElement == settings.gutterRelay):
-                        self.gutterIsActive = True
                     check = True
                     success = gameRule.activate()
                     if(success):
@@ -44,7 +40,6 @@ class GameMode:
                             if(gameRule.delay <= 0):
                                 triggeredRelayElements.append(relayElement)
                             else:
-                                print("test")
                                 self.addDelayRelay(relayElement, gameRule.delay)
 
             if(check == False):
@@ -56,7 +51,8 @@ class GameMode:
 
     # Create a method to check and add the score.
     def checkAndAddScore(self, gameRule):
-        self.score[self.currentPlayer] += gameRule.getPoints()
+        if(self.gameStatus == True):
+            self.score[self.currentPlayer] += gameRule.getPoints()
 
     # Create a method to check special circumstances.
     def checkSpecialCase(self, gameRule):
@@ -93,9 +89,7 @@ class GameMode:
             return
         print(self.attempts[self.currentPlayer])
         self.attempts[self.currentPlayer] = self.attempts[self.currentPlayer] - 1
-        if(self.gutterIsActive == True):
-            self.addDelayRelay(settings.gutterRelay, 1)
-        if(self.attempts[self.currentPlayer] <= 0 and self.currentPlayer > self.players):
+        if(self.attempts[self.currentPlayer] <= 0 and self.currentPlayer < self.players-1):
             self.currentPlayer = self.currentPlayer + 1
 
 

@@ -52,6 +52,6 @@ class Game:
                     if(self.rightFlipperButtonPressed == False):
                         self.gameModeSelect.incrementField()
                         self.rightFlipperButtonPressed = True
-                    else:
-                        self.rightFlipperButtonPressed = False
+                else:
+                    self.rightFlipperButtonPressed = False
 Game()
