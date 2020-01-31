@@ -23,7 +23,7 @@ class Game:
                 triggeredRelayElements = self.gameMode.checkRules(activeSensorElements)
                 self.Hardware.activateRelayElements(triggeredRelayElements)
                 # W.I.P
-                if(self.gameMode.gameStatus):
+                if(self.gameMode.gameStatus == False):
                     self.running = False
                     self.gameModeSelect = GameModeSelect()
             else:

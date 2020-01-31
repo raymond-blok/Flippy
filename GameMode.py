@@ -20,8 +20,8 @@ class GameMode:
 
 
         self.gameStatus = True
-        self.addDelayRelay(settings.gutterRelay, 1)
-
+        self.addDelayRelay(settings.gutterRelay, 0)
+        self.gameStart = False
     # Create a method to check the list with GameRules.
     def checkRules(self, activeSensorElements):
         triggeredRelayElements = []
@@ -44,12 +44,14 @@ class GameMode:
                             if(gameRule.delay <= 0):
                                 triggeredRelayElements.append(relayElement)
                             else:
+                                print("test")
                                 self.addDelayRelay(relayElement, gameRule.delay)
 
             if(check == False):
                 gameRule.deactivate()
                 self.deactivateSpecialCase(gameRule)
         triggeredRelayElements += self.getAndRemoveFinishedRelays()
+        self.gameStart = True
         return triggeredRelayElements
 
     # Create a method to check and add the score.
@@ -62,7 +64,8 @@ class GameMode:
         if(case == None):
             return
         if(case == "ENDGAME"):
-            self.endGame()
+            if(self.gameStart):
+                self.endGame()
             return
         if(case == "zoneElement"):
             self.zoneRelayList.append(gameRule.relayElement)
@@ -88,10 +91,11 @@ class GameMode:
         if(allDone == True):
             self.gameStatus = False
             return
+        print(self.attempts[self.currentPlayer])
         self.attempts[self.currentPlayer] = self.attempts[self.currentPlayer] - 1
         if(self.gutterIsActive == True):
             self.addDelayRelay(settings.gutterRelay, 1)
-        if(self.attempts[self.currentPlayer] <= 0):
+        if(self.attempts[self.currentPlayer] <= 0 and self.currentPlayer > self.players):
             self.currentPlayer = self.currentPlayer + 1
 
 

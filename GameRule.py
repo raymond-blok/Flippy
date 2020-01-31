@@ -14,7 +14,7 @@ class GameRule:
         self.active = False
         self.triggered = False
         self.addRelay = addRelay
-        self.delay = 0
+        self.delay = delay
 
     # Create a method to return the Sensor.
     def getSensor(self):
