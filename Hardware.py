@@ -2,6 +2,7 @@ from SensorElement import *
 from RelayElement import *
 import wiringpi
 import settings
+import time
 
 class Hardware:
     def __init__(self):
@@ -27,6 +28,7 @@ class Hardware:
             self.relayElements.append(RelayElement(relayElement[0], relayElement[1]))
 
     # scan a list of Sensors to see if active
+    # returns(int[]) the acitve senors
     def checkSensorElements(self):
         activeSensorElements = []
         for sensorElement in self.sensorElements:
@@ -34,7 +36,9 @@ class Hardware:
                 activeSensorElements.append(sensorElement.pin)
         return activeSensorElements
 
-    # activate a RelayElement
+    # activate relayelements in the in the given list
+    #params (int[]) relays to activate.
+    # returns void
     def activateRelayElements(self, triggeredRelayElements):
         for relayElement in self.relayElements:
             isChecked = False
@@ -45,3 +49,8 @@ class Hardware:
                     break
             if(isChecked != True):
                 relayElement.powerOn()
+    def testRelays(self):
+        for relay in self.relayElements:
+            relay.powerOff()
+            time.sleep(0.3)
+            relay.powerOn()

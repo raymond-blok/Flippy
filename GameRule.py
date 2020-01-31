@@ -1,5 +1,5 @@
 class GameRule:
-    def __init__(self, sensorElement, relayElement, score, specialCase = None):
+    def __init__(self, sensorElement, relayElement, score, specialCase = None, delay = 0, addRelay = True):
         # save a sensor to a field.
         self.sensorElement = sensorElement
 
@@ -13,23 +13,30 @@ class GameRule:
         self.specialCase = specialCase
         self.active = False
         self.triggered = False
+        self.addRelay = addRelay
+        self.delay = delay
 
-    # Create a method to return the Sensor.
+    # getter of the sensor
+    # returns (int): the sensor
     def getSensor(self):
         return self.sensorElement
 
-    # Create a method to return the RelayElement.
+    # getter for the relay element.
     def getRelayElement(self):
-        return self.relayElement
+        if(self.addRelay):
+            return self.relayElement
+        return None
 
-    # Create a method to return the points.
+    # getter for points.
     def getPoints(self):
         return self.score
 
-    # Create a method to return special cases.
+    # getter for the specialcase
     def getSpecialCase(self):
         return self.specialCase
 
+    # activates the GameRule
+    # returns true if the rule is active
     def activate(self):
         if(self.active):
             return True
@@ -37,6 +44,8 @@ class GameRule:
             self.active = True
             return True
 
+    # deactivates the game rule.
+    # returns void
     def deactivate(self):
         self.triggered = False
         self.active = False

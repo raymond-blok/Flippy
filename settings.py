@@ -1,3 +1,4 @@
+import GameRule
 debugMode =             True
 
 #Sensors
@@ -37,7 +38,7 @@ NRelay =                302
 ERelay =                301
 
 Hole =                  407
-leftFlipper =           406
+leftFlipper =           401
 LeftBumperRelay =       405
 leftMushroomRelay =     404
 rightMushroomRelay =    403
@@ -46,6 +47,7 @@ aboveMushroomRelay =    402
 def init():
     global sensorList
     global relayList
+    global generalGameRules
 
     #sensorList with name and pin
     sensorList = []
@@ -88,3 +90,31 @@ def init():
     relayList.append(["leftMushroomRelay", leftMushroomRelay])
     relayList.append(["rightMushroomRelay", rightMushroomRelay])
     relayList.append(["aboveMushroomRelay", aboveMushroomRelay])
+
+    generalGameRules = []
+
+    generalGameRules.append(GameRule.GameRule(leftBumperSensor, LeftBumperRelay,    0, None))
+    generalGameRules.append(GameRule.GameRule(rightBumperSensor, rightBumperRelay,   0, None))
+    generalGameRules.append(GameRule.GameRule(leftMushroomSensor, leftMushroomRelay,  0, None))
+    generalGameRules.append(GameRule.GameRule(rightMushroomSensor, rightMushroomRelay, 0, None))
+    generalGameRules.append(GameRule.GameRule(aboveMushroomSenor, aboveMushroomRelay, 0, None))
+    generalGameRules.append(GameRule.GameRule(tiltSensor, None, 0, "ENDGAME"))
+    generalGameRules.append(GameRule.GameRule(swingSensor, None, 0, "ENDGAME"))
+
+    generalGameRules.append(GameRule.GameRule(middleBumpers, None, 0,None))
+    generalGameRules.append(GameRule.GameRule(pointSensorSerie500,None, 500, None))
+    generalGameRules.append(GameRule.GameRule(upLeftRollover, None, 100, None))
+    generalGameRules.append(GameRule.GameRule(leftGate, None, 200, None))
+    generalGameRules.append(GameRule.GameRule(pointSensorSerie1000, None, 1000, None))
+    generalGameRules.append(GameRule.GameRule(rightUpBumper, None, 0, None))
+    generalGameRules.append(GameRule.GameRule(leftFlipperButton, leftFlipper, 0, None))
+    generalGameRules.append(GameRule.GameRule(rightFlipperButton, rightFlipper, 0, None))
+
+    generalGameRules.append(GameRule.GameRule(ZSensor, ZRelay, 0, "zoneElement", 0, False))
+    generalGameRules.append(GameRule.GameRule(OSensor, ORelay, 0, "zoneElement", 0, False))
+    generalGameRules.append(GameRule.GameRule(NSensor, NRelay, 0, "zoneElement", 0, False))
+    generalGameRules.append(GameRule.GameRule(ESensor, ERelay, 0, "zoneElement", 0, False))
+    generalGameRules.append(GameRule.GameRule(gutterSensor, gutterRelay, 0, "ENDGAME", 1))
+    generalGameRules.append(GameRule.GameRule(holeAbove, Hole, 1000, None, 2))
+    generalGameRules.append(GameRule.GameRule(vibrationSensor, None, 0, "ENDGAME"))
+    generalGameRules.append(GameRule.GameRule(startButton, None, 0, "ENDGAME"))
