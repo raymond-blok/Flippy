@@ -19,9 +19,11 @@ class GameMode:
 
 
         self.gameStatus = True
+        # this is so that the ball returns at the start of the game.
         self.addDelayRelay(settings.gutterRelay, 0)
         self.gameStart = False
     # Create a method to check the list with GameRules.
+    #
     def checkRules(self, activeSensorElements):
         triggeredRelayElements = []
         for gameRule in self.gameRules:
@@ -32,7 +34,7 @@ class GameMode:
                     success = gameRule.activate()
                     if(success):
                         if(gameRule.triggered == False):
-                            self.checkAndAddScore(gameRule)
+                            self.checkAndAddScore(gameRule.getPoints())
                             self.checkSpecialCase(gameRule)
                             gameRule.triggered = True
                         relayElement = gameRule.getRelayElement()
@@ -50,9 +52,9 @@ class GameMode:
         return triggeredRelayElements
 
     # Create a method to check and add the score.
-    def checkAndAddScore(self, gameRule):
+    def checkAndAddScore(self, points):
         if(self.gameStatus == True):
-            self.score[self.currentPlayer] += gameRule.getPoints()
+            self.score[self.currentPlayer] += points
 
     # Create a method to check special circumstances.
     def checkSpecialCase(self, gameRule):

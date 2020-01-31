@@ -16,13 +16,15 @@ class Game:
         self.startButtonPressed = False
         self.leftFlipperButtonPressed = False
         self.rightFlipperButtonPressed = False
+        # This loop runs always and has 2 states game selection state and a game running state.
         while(True):
             triggeredRelayElements = []
+            # If running is true than the programm enters the game state.
             if(self.running):
                 activeSensorElements = self.Hardware.checkSensorElements()
                 triggeredRelayElements = self.gameMode.checkRules(activeSensorElements)
                 self.Hardware.activateRelayElements(triggeredRelayElements)
-                # W.I.P
+
                 if(self.gameMode.gameStatus == False):
                     self.running = False
                     self.gameModeSelect = GameModeSelect()
@@ -32,7 +34,7 @@ class Game:
                     if(self.startButtonPressed == False):
                         self.startButtonPressed = True
                         if(self.gameModeSelect.nextStep()):
-                            # Still need to make sure that the button is activated once per press.
+
                             selectedGame = self.gameModeSelect.getSelectedGameMode()
                             self.gameMode = GameMode(settings.generalGameRules, selectedGame[0], selectedGame[1])
                             self.running = True
