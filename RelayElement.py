@@ -1,6 +1,6 @@
 import wiringpi
 import settings
-import time 
+import time
 
 class RelayElement:
     def __init__(self,name, pin):
@@ -15,6 +15,7 @@ class RelayElement:
         wiringpi.digitalWrite(self.pin, 1)
 
     # powering on the RelayElement.
+    # returns void
     def powerOn(self):
         #check if power is off and time is later then 100 milis
         if(self.active != True and ( ( (int(round(time.time() * 1000) ) - self.timeInMillis ) > 100))):
@@ -22,9 +23,10 @@ class RelayElement:
             if (settings.debugMode):
                 print(self.name + " is powerd on (pull-up)")
             self.active = True
-            wiringpi.digitalWrite(self.pin, self.active) 
+            wiringpi.digitalWrite(self.pin, self.active)
 
     # powerinng off the RelayElement.
+    # returns void
     def powerOff(self):
         if(self.active != False):
             #Debug option

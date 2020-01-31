@@ -6,12 +6,13 @@ class SensorElement:
         self.name = name
         self.pin = pin
         self.active = False
-        
+
         # Save the pin used for this sensor.
         wiringpi.pinMode(self.pin, 0)
         wiringpi.pullUpDnControl(self.pin, 2)
 
-    # Create a method to check if the sensor is active.
+    # this is a method to check if a sensor is triggered.
+    # returns (boolean) True if active.
     def checkSensor(self):
         sensorValue = 1 - wiringpi.digitalRead(self.pin) # invert because of pullup.
         if(sensorValue == 1):

@@ -22,9 +22,11 @@ class GameMode:
         # this is so that the ball returns at the start of the game.
         self.addDelayRelay(settings.gutterRelay, 0)
         self.resetZone();
+        self.addDelayRelay(settings.leftFlipper, 0)
         self.gameStart = False
-    # Create a method to check the list with GameRules.
-    #
+    # this method checks the list with GameRules.
+    #param int[] this is a list of active Sensors
+    #returns int[] this is a list of relays that need to be activated.
     def checkRules(self, activeSensorElements):
         triggeredRelayElements = []
         for gameRule in self.gameRules:
@@ -52,12 +54,16 @@ class GameMode:
         self.gameStart = True
         return triggeredRelayElements
 
-    # Create a method to check and add the score.
+    # this method adds the score if it can.
+    # param int this is the amount of points to add.
+    # return void
     def checkAndAddScore(self, points):
         if(self.gameStatus == True):
             self.score[self.currentPlayer] += points
 
-    # Create a method to check special circumstances.
+    # this is a method for when a rule requires extra funcionality behond the standard.
+    # param GameRule this is the gamerule to checks
+    # return void
     def checkSpecialCase(self, gameRule):
         case = gameRule.getSpecialCase()
         if(case == None):
@@ -81,7 +87,9 @@ class GameMode:
         if(case == "zoneElement"):
             if (gameRule.relayElement in self.zoneRelayList):
                 self.zoneRelayList.remove(gameRule.relayElement)
-    # Create a method to end the game.
+
+    # this method ends the current turn of an player
+    # return void
     def endGame(self):
         allDone = True
         for attempt in self.attempts:
@@ -97,16 +105,26 @@ class GameMode:
             self.currentPlayer = self.currentPlayer + 1
 
 
-
+    #this method checks if an relay is already active to prevent doubles.
+    # param (int): the relay to check
+    # returns (boolean): returns false if already in the list.
     def checkDelayRelay(self, relay):
         for delayRelay in self.delayRelayList:
             if(delayRelay[0] == relay):
                 return False
         return True
+
+    # This method adds the relay to the delay list if it does not exist yet.
+    # param (int) the relay to add.
+    # param (int) the amount to delay the relay activation.
+    # returns void
     def addDelayRelay(self, relay, delay):
         if(self.checkDelayRelay(relay)):
             self.delayRelayList.append([relay, time.time() + delay])
 
+    #removes a relay form the delay list
+    #param (int) this is the relay to remove from the list.
+    #returns (boolean): true if the removal was successful.
     def removeDelayRelay(self, relay):
         position = 0
         for delayRelay in self.delayRelayList:
@@ -116,6 +134,8 @@ class GameMode:
             position+=1
         return False
 
+    #this method removes and returns the relays that are ready to be executed.
+    #returns (int[]) the relays that are ready for activation.
     def getAndRemoveFinishedRelays(self):
         currentTime = time.time()
         finishedRelays = []
@@ -125,7 +145,8 @@ class GameMode:
         for relay in finishedRelays:
             self.removeDelayRelay(relay)
         return finishedRelays
-    # Create a method to get the current
+    # this method resets the zone if nessesery.
+    # returns void
     def resetZone(self):
         self.addDelayRelay(settings.ZRelay, 0)
         self.addDelayRelay(settings.ORelay, 0)

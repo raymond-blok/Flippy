@@ -16,7 +16,7 @@ class Hardware:
         wiringpi.mcp23017Setup(mcpTwoPin, 0x21)
         wiringpi.mcp23017Setup(mcpThreePin, 0x22)
         wiringpi.mcp23017Setup(mcpFourPin, 0x23)
-        
+
         # Hold a list of Sensors objects
         self.sensorElements = []
         for sensorElement in settings.sensorList:
@@ -28,6 +28,7 @@ class Hardware:
             self.relayElements.append(RelayElement(relayElement[0], relayElement[1]))
 
     # scan a list of Sensors to see if active
+    # returns(int[]) the acitve senors
     def checkSensorElements(self):
         activeSensorElements = []
         for sensorElement in self.sensorElements:
@@ -35,7 +36,9 @@ class Hardware:
                 activeSensorElements.append(sensorElement.pin)
         return activeSensorElements
 
-    # activate a RelayElement
+    # activate relayelements in the in the given list
+    #params (int[]) relays to activate.
+    # returns void
     def activateRelayElements(self, triggeredRelayElements):
         for relayElement in self.relayElements:
             isChecked = False
