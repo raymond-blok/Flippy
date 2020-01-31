@@ -39,7 +39,7 @@ ERelay =                301
 
 Hole =                  407
 leftFlipper =           406
-LeftBumperRelay =       405
+LeftBumperRelay =       400
 leftMushroomRelay =     404
 rightMushroomRelay =    403
 aboveMushroomRelay =    402
@@ -101,10 +101,10 @@ def init():
     generalGameRules.append(GameRule.GameRule(swingSensor, None, 0, "ENDGAME"))
 
     generalGameRules.append(GameRule.GameRule(middleBumpers, None, 0,None))
-    generalGameRules.append(GameRule.GameRule(pointSensorSerie500,None, 0, None))
-    generalGameRules.append(GameRule.GameRule(upLeftRollover, None, 0, None))
-    generalGameRules.append(GameRule.GameRule(leftGate, None, 0, None))
-    generalGameRules.append(GameRule.GameRule(pointSensorSerie1000, None, 0, None))
+    generalGameRules.append(GameRule.GameRule(pointSensorSerie500,None, 500, None))
+    generalGameRules.append(GameRule.GameRule(upLeftRollover, None, 100, None))
+    generalGameRules.append(GameRule.GameRule(leftGate, None, 200, None))
+    generalGameRules.append(GameRule.GameRule(pointSensorSerie1000, None, 1000, None))
     generalGameRules.append(GameRule.GameRule(rightUpBumper, None, 0, None))
     generalGameRules.append(GameRule.GameRule(leftFlipperButton, leftFlipper, 0, None))
     generalGameRules.append(GameRule.GameRule(rightFlipperButton, rightFlipper, 0, None))
@@ -114,6 +114,6 @@ def init():
     generalGameRules.append(GameRule.GameRule(NSensor, NRelay, 0, "zoneElement", 0, False))
     generalGameRules.append(GameRule.GameRule(ESensor, ERelay, 0, "zoneElement", 0, False))
     generalGameRules.append(GameRule.GameRule(gutterSensor, gutterRelay, 0, None))
-    generalGameRules.append(GameRule.GameRule(holeAbove, Hole, 0, None))
+    generalGameRules.append(GameRule.GameRule(holeAbove, Hole, 1000, None))
     generalGameRules.append(GameRule.GameRule(vibrationSensor, None, 0, "ENDGAME"))
     generalGameRules.append(GameRule.GameRule(startButton, None, 0, "ENDGAME"))

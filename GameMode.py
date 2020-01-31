@@ -15,6 +15,7 @@ class GameMode:
         # list to keep the zone relayList
         self.zoneRelayList = []
         self.delayRelayList = []
+        self.gutterIsActive = False
 
 
 
@@ -24,10 +25,13 @@ class GameMode:
     # Create a method to check the list with GameRules.
     def checkRules(self, activeSensorElements):
         triggeredRelayElements = []
+        self.gutterIsActive = False
         for gameRule in self.gameRules:
             check = False
             for activeSensorElement in activeSensorElements:
                 if(gameRule.getSensor() == activeSensorElement):
+                    if(activeSensorElement == settings.gutterRelay):
+                        self.gutterIsActive = True
                     check = True
                     success = gameRule.activate()
                     if(success):
@@ -64,6 +68,7 @@ class GameMode:
             self.zoneRelayList.append(gameRule.relayElement)
             print(self.zoneRelayList)
             if(len(self.zoneRelayList) >= 4):
+                self.checkAndAddScore(10000)
                 for zoneRelay in self.zoneRelayList:
                     self.addDelayRelay(zoneRelay, 5)
 
@@ -76,12 +81,16 @@ class GameMode:
                 self.zoneRelayList.remove(gameRule.relayElement)
     # Create a method to end the game.
     def endGame(self):
-        if all(x is 0 for x in self.attempts):
+        allDone = True
+        for attempt in self.attempts:
+            if(attempt > 0):
+                allDone = False
+        if(allDone == True):
             self.gameStatus = False
-            self.score = 0
             return
         self.attempts[self.currentPlayer] = self.attempts[self.currentPlayer] - 1
-        self.addDelayRelay(settings.gutterRelay, 1)
+        if(self.gutterIsActive == True):
+            self.addDelayRelay(settings.gutterRelay, 1)
         if(self.attempts[self.currentPlayer] <= 0):
             self.currentPlayer = self.currentPlayer + 1
 
@@ -89,7 +98,7 @@ class GameMode:
 
     def checkDelayRelay(self, relay):
         for delayRelay in self.delayRelayList:
-            if(delayRelay == relay):
+            if(delayRelay[0] == relay):
                 return False
         return True
     def addDelayRelay(self, relay, delay):
